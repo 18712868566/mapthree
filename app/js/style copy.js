@@ -1,3 +1,13 @@
+const mapPng = "../images/map.png";
+const site1 = "../images/ta.png";
+const site2 = "../images/huoshan.png";
+const site3 = "../images/long.png";
+const site4 = "../images/lang.png";
+
+// 加载图片文件
+const textureLoader = new THREE.TextureLoader();
+const bgPng = textureLoader.load(mapPng);
+
 // 该对象用于跟踪时间
 var clock = new THREE.Clock();
 // 渲染器
@@ -99,17 +109,6 @@ orbit.addEventListener('change', e => {
 /* ----限制场景平移范围 end ----*/
 
 
-const mapPng = "../images/map.png";
-const site1 = "../images/ta.png";
-const site2 = "../images/huoshan.png";
-const site3 = "../images/long.png";
-const site4 = "../images/lang.png";
-
-// 加载图片文件
-const textureLoader = new THREE.TextureLoader();
-const bgPng = textureLoader.load(mapPng);
-
-
 // 中心立方体
 const boxGeometry = new THREE.BoxGeometry(2, 2, 2);
 const boxMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true, transparent: true, depthTest: false });  //纯色材质
@@ -164,10 +163,10 @@ yZ3Plane.rotation.x = -0.5 * Math.PI;
 const icon1 = textureLoader.load(site1);
 const icon_Sprite1 = new TextureAnimator(icon1, 23, 1, 23, 100);
 
-const s2Site1 = new THREE.PlaneGeometry(5.24 * 0.8, 7.47 * 0.8);
+const s2Site1 = new THREE.PlaneGeometry(5.24, 7.47);
 const s2Site1Material = new THREE.MeshBasicMaterial({ map: icon1, side: THREE.DoubleSide, transparent: true, depthTest: false });
 const s2Site1Plane = new THREE.Mesh(s2Site1, s2Site1Material);
-s2Site1Plane.position.set(-2.4, 0.1, 6);
+s2Site1Plane.position.set(-2.6, 0.1, 6);
 scene.add(s2Site1Plane);
 s2Site1Plane.rotation.x = -0.5 * Math.PI;
 
@@ -176,7 +175,7 @@ s2Site1Plane.rotation.x = -0.5 * Math.PI;
 const icon2 = textureLoader.load(site2);
 const icon_Sprite2 = new TextureAnimator(icon2, 25, 1, 25, 100);
 
-const s2Site2 = new THREE.PlaneGeometry(11.74 * 0.8, 8 * 0.8);
+const s2Site2 = new THREE.PlaneGeometry(11.74, 8);
 const s2Site2Material = new THREE.MeshBasicMaterial({ map: icon2, side: THREE.DoubleSide, transparent: true, depthTest: false });
 const s2Site2Plane = new THREE.Mesh(s2Site2, s2Site2Material);
 s2Site2Plane.position.set(7, 0.1, 2);
@@ -187,7 +186,7 @@ s2Site2Plane.rotation.x = -0.5 * Math.PI;
 const icon3 = textureLoader.load(site3);
 const icon_Sprite3 = new TextureAnimator(icon3, 33, 1, 33, 60);
 
-const s2Site3 = new THREE.PlaneGeometry(7.81 * 0.8, 5.3 * 0.8);
+const s2Site3 = new THREE.PlaneGeometry(7.81, 5.3);
 const s2Site3Material = new THREE.MeshBasicMaterial({ map: icon3, side: THREE.DoubleSide, transparent: true, depthTest: false });
 const s2Site3Plane = new THREE.Mesh(s2Site3, s2Site3Material);
 s2Site3Plane.position.set(4, 0.1, -6.5);
@@ -198,7 +197,7 @@ s2Site3Plane.rotation.x = -0.5 * Math.PI;
 const icon4 = textureLoader.load(site4);
 const icon_Sprite4 = new TextureAnimator(icon4, 45, 1, 45, 80);
 
-const s2Site4 = new THREE.PlaneGeometry(5 * 0.8, 6.31 * 0.8);
+const s2Site4 = new THREE.PlaneGeometry(5, 6.31);
 const s2Site4Material = new THREE.MeshBasicMaterial({ map: icon4, side: THREE.DoubleSide, transparent: true, depthTest: false });
 const s2Site4Plane = new THREE.Mesh(s2Site4, s2Site4Material);
 s2Site4Plane.position.set(-6, 0.1, -9);
@@ -210,65 +209,12 @@ s2Site4Plane.rotation.x = -0.5 * Math.PI;
 const icon5 = new THREE.TextureLoader().load('../images/zy.png');
 const icon_Sprite5 = new TextureAnimator(icon5, 60, 1, 60, 75); // texture, #horiz, #vert, #total, duration.
 
-const s2Site5 = new THREE.PlaneGeometry(5 * 0.8, 4.57 * 0.8);
+const s2Site5 = new THREE.PlaneGeometry(5, 4.57);
 const s2Site5Material = new THREE.MeshBasicMaterial({ map: icon5, side: THREE.DoubleSide, transparent: true, depthTest: false });
 const s2Site5Plane = new THREE.Mesh(s2Site5, s2Site5Material);
 s2Site5Plane.position.set(-13.5, 0.1, -1);
 scene.add(s2Site5Plane);
 s2Site5Plane.rotation.x = -0.5 * Math.PI;
-
-
-
-// 地图轮廓
-const mhor1 = new THREE.TextureLoader().load('../images/mhor1.png');
-const mhor1Pg = new THREE.PlaneGeometry(10.79 * 1.8, 6.95 * 1.8);
-
-const mhor1Material = new THREE.MeshBasicMaterial({ map: mhor1, side: THREE.DoubleSide, transparent: true, opacity: 0, depthTest: false });
-const mhor1Plane = new THREE.Mesh(mhor1Pg, mhor1Material);
-mhor1Plane.position.set(3, 0, 6.5);
-scene.add(mhor1Plane);
-mhor1Plane.rotation.x = -0.5 * Math.PI;
-
-
-const mhor2 = new THREE.TextureLoader().load('../images/mhor2.png');
-const mhor2Pg = new THREE.PlaneGeometry(11.29 * 1.8, 9.6 * 1.8);
-
-const mhor2Material = new THREE.MeshBasicMaterial({ map: mhor2, side: THREE.DoubleSide, transparent: true, opacity: 0, depthTest: false });
-const mhor2Plane = new THREE.Mesh(mhor2Pg, mhor2Material);
-mhor2Plane.position.set(11, 0.2, -2);
-scene.add(mhor2Plane);
-mhor2Plane.rotation.x = -0.5 * Math.PI;
-mhor2Plane.rotation.z = -0.03 * Math.PI;
-
-
-const mhor3 = new THREE.TextureLoader().load('../images/mhor3.png');
-const mhor3Pg = new THREE.PlaneGeometry(11.61 * 1.8, 8.5 * 1.8);
-const mhor3Material = new THREE.MeshBasicMaterial({ map: mhor3, side: THREE.DoubleSide, transparent: true, opacity: 0, depthTest: false });
-const mhor3Plane = new THREE.Mesh(mhor3Pg, mhor3Material);
-
-mhor3Plane.position.set(0, 1, -4);
-scene.add(mhor3Plane);
-mhor3Plane.rotation.x = -0.5 * Math.PI;
-
-
-const mhor4 = new THREE.TextureLoader().load('../images/mhor4.png');
-const mhor4Pg = new THREE.PlaneGeometry(17.05 * 1.8, 8 * 1.8);
-const mhor4Material = new THREE.MeshBasicMaterial({ map: mhor4, side: THREE.DoubleSide, transparent: true, opacity: 0, depthTest: false });
-const mhor4Plane = new THREE.Mesh(mhor4Pg, mhor4Material);
-
-mhor4Plane.position.set(-1.2, 0.6, -7);
-scene.add(mhor4Plane);
-mhor4Plane.rotation.x = -0.5 * Math.PI;
-
-
-const mhor5 = new THREE.TextureLoader().load('../images/mhor6.png');
-const mhor5Pg = new THREE.PlaneGeometry(8.56 * 2, 7.89 * 2);
-const mhor5Material = new THREE.MeshBasicMaterial({ map: mhor5, side: THREE.DoubleSide, transparent: true, opacity: 0, depthTest: false });
-const mhor5Plane = new THREE.Mesh(mhor5Pg, mhor5Material);
-
-mhor5Plane.position.set(-12.05, 0, 2.25);
-scene.add(mhor5Plane);
-mhor5Plane.rotation.x = -0.5 * Math.PI;
 
 
 // 光
@@ -281,10 +227,6 @@ const huoshanId = s2Site2Plane.id;
 const longId = s2Site3Plane.id;
 const langId = s2Site4Plane.id;
 const zyId = s2Site5Plane.id;
-
-// 地图轮廓光
-const mhor1PlaneId = mhor1Plane.id;
-const mhor2PlaneId = mhor2Plane.id;
 
 //声明raycaster和mouse变量
 // 光线投射 -- 模型添加点击事件
@@ -330,77 +272,102 @@ function onMouseClick(event) {
         if (intersects[i].object.id === taId) {
             intersects[i].object.material.color.set(0xFF0000);
 
-            TweenMax.to(orbit.target, 0.5, { x: -2.5, y: 0, z: 6 });
-            TweenMax.to(camera.position, 0.5, { x: -2.5, y: 10, z: 6 });
+            TweenMax.to(orbit.target, 1, { x: -2.5, y: 0, z: 6 });
+            TweenMax.to(camera.position, 1, { x: -2.5, y: 10, z: 6 });
         }
 
         if (intersects[i].object.id === huoshanId) {
             intersects[i].object.material.color.set(0xFF0000);
 
-            TweenMax.to(orbit.target, 0.5, { x: 7.2, y: 0, z: 0.45 });
-            TweenMax.to(camera.position, 0.5, { x: 7.2, y: 10, z: 0.45 });
+            TweenMax.to(orbit.target, 1, { x: 7.2, y: 0, z: 0.45 });
+            TweenMax.to(camera.position, 1, { x: 7.2, y: 10, z: 0.45 });
         }
 
         if (intersects[i].object.id === longId) {
             intersects[i].object.material.color.set(0xFF0000);
 
-            TweenMax.to(orbit.target, 0.5, { x: 2, y: 0, z: -6.5 });
-            TweenMax.to(camera.position, 0.5, { x: 2, y: 10, z: -6.5 });
+            TweenMax.to(orbit.target, 1, { x: 2, y: 0, z: -6.5 });
+            TweenMax.to(camera.position, 1, { x: 2, y: 10, z: -6.5 });
         }
 
         if (intersects[i].object.id === langId) {
             intersects[i].object.material.color.set(0xFF0000);
 
-            TweenMax.to(orbit.target, 0.5, { x: -4, y: 0, z: -8 });
-            TweenMax.to(camera.position, 0.5, { x: -4, y: 10, z: -8 });
+            TweenMax.to(orbit.target, 1, { x: -4, y: 0, z: -8 });
+            TweenMax.to(camera.position, 1, { x: -4, y: 10, z: -8 });
         }
 
         if (intersects[i].object.id === zyId) {
             intersects[i].object.material.color.set(0xFF0000);
 
-            TweenMax.to(orbit.target, 0.5, { x: -10, y: 0, z: -0.6 });
-            TweenMax.to(camera.position, 0.5, { x: -10, y: 10, z: -0.6 });
+            TweenMax.to(orbit.target, 1, { x: -10, y: 0, z: -0.6 });
+            TweenMax.to(camera.position, 1, { x: -10, y: 10, z: -0.6 });
         }
     }
 }
 
 window.addEventListener('click', onMouseClick, false);
 
-// 划过当前选中
+
 function onMouseMove(event) {
+
     // 获取屏幕坐标
     let vector = new THREE.Vector3(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5)
     // 将屏幕坐标转换为three.js场景坐标（鼠标点击位坐标置转三维坐标）
     vector = vector.unproject(camera)
+
     // 摄像机位置向场景发射“光线”
     const raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize())
     // 判断指定的对象中哪些被该光线照射到了
-    // const intersects = raycaster.intersectObjects([mhor1Plane, mhor2Plane, mhor3Plane, mhor4Plane, mhor5Plane], false)
-    const intersects = raycaster.intersectObjects([s2Site1Plane, s2Site2Plane, s2Site3Plane, s2Site4Plane, s2Site5Plane], false)
+    const intersects = raycaster.intersectObjects([box, s2Site1Plane, s2Site2Plane, s2Site3Plane, s2Site4Plane, s2Site5Plane])
+
     /******************************方式2end*********************************/
 
-    if (intersects.length == 0) {
-        TweenMax.to(mhor5Plane.material, 0.5, { opacity: 0 });
-    }
-    
+    console.log(intersects);
+    //遍历所有模型 单独设置
     for (let i = 0; i < intersects.length; i++) {
+        // intersects[i].object.material.color.set(0xff0000);
+        if (intersects[i].object.id === boxId) {
+            intersects[i].object.material.color.set(0xffffff);
+
+            console.log('box');
+           
+        }
+        if (intersects[i].object.id === taId) {
+            intersects[i].object.material.color.set(0xffffff);
+
+        }
+
+        if (intersects[i].object.id === huoshanId) {
+            intersects[i].object.material.color.set(0xffffff);
+
+        }
+
+        if (intersects[i].object.id === longId) {
+            intersects[i].object.material.color.set(0xffffff);
+        }
+
+        if (intersects[i].object.id === langId) {
+            intersects[i].object.material.color.set(0xffffff);
+        }
+
         if (intersects[i].object.id === zyId) {
-            TweenMax.to(mhor5Plane.material, 0.5, { opacity: 1 });
+            intersects[i].object.material.color.set(0xffffff);
         }
     }
 }
 window.addEventListener('mousemove', onMouseMove, false);
 
 
-
-
 // 更新画布
 function animate(delta) {
     box.rotation.x = 20 + 10 * Math.cos(delta / 10000);
     box.rotation.y = 2 + 10 * Math.abs(Math.sin(delta / 10000));
+    // updateSnow();
     update();
     renderer.render(scene, camera);
 }
+
 renderer.setAnimationLoop(animate);
 
 
@@ -419,10 +386,11 @@ function update() {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+
     renderer.setSize(window.innerWidth, window.innerHeight)
 };
-window.addEventListener('resize', onWindowResize);
 
+window.addEventListener('resize', onWindowResize);
 
 // 加载精灵图动画
 function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDuration) {
@@ -468,11 +436,75 @@ function TextureAnimator(texture, tilesHoriz, tilesVert, numTiles, tileDispDurat
     };
 }
 
+// 场景放大缩小
+window.onload = function () {
+    const btn_up = document.querySelectorAll('.btn_up')[0];
+    console.log(btn_up);
+    btn_up.onclick = function () {
+        // camera.position.set(0, 15, 0);
+        console.log(camera.position);
+        if (camera.position.y != 20) {
+        }
+    };
+};
+
+// 入场动画
+setTimeout(() => {
+    TweenMax.fromTo(camera.position, 1, { x: 0, y: 50, z: 0 }, { x: 0, y: 20, z: 0 });
+    setTimeout(() => {
+        orbit.maxDistance = 20; //相机向外移动
+    }, 1000);
+}, 2000);
+
+
+
+
+
+
+// 下雪
+const snow = new THREE.TextureLoader().load('../images/snow.png');
+const snowGeo = new THREE.BufferGeometry();
+const vertices = []
+const speeds = []
+const rotateSpeeds = []
+
+for (let i = 0; i < 50; i++) {
+    for (let j = 0; j < 50; j++) {
+
+        var x = Math.random() * 300 - 200;
+        var y = Math.random() * 300 - 200;
+        vertices.push(x, Math.random() * 50, y);
+        speeds.push(Math.random() * 10);
+        rotateSpeeds.push(Math.random() * 5);
+    }
+}
+
+snowGeo.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3))
+const snowMaterial = new THREE.PointsMaterial({ map: snow, blending: THREE.AdditiveBlending, depthTest: false, transparent: true, })
+var aniSnow = new THREE.Points(snowGeo, snowMaterial);
+scene.add(aniSnow);
+
+
+let elspaTime = 0
+let delta = 1 / 60;
+function updateSnow() {
+
+    elspaTime += 1 / 60;
+    for (let i = 0; i < speeds.length; i++) {
+        vertices[3 * i + 1] -= speeds[i] * elspaTime * delta;
+        if (vertices[3 * i + 1] < 0) {
+            vertices[3 * i + 1] = 50;
+        }
+        aniSnow.geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3))
+    }
+};
+
 // GUI
 const gui = new dat.GUI();
+
 const options = {
     boxColor: '#ffea00',
-    wireframe: true,
+    wireframe: true
 }
 
 gui.addColor(options, 'boxColor').onChange(function (e) {
@@ -493,6 +525,11 @@ gui.add(camera, 'near', 1, 200).onChange(updateCamera)
 gui.add(camera, 'far', 1, 200).onChange(updateCamera)
 
 
+
+
+
+
+
 class PositionGUI {
     constructor(obj, name) {
         this.obj = obj
@@ -511,23 +548,25 @@ folder.add(new PositionGUI(camera.position, 'y'), 'modify', 0, 200).name('y')
 folder.add(new PositionGUI(camera.position, 'z'), 'modify', 0, 200).name('z')
 
 
+// 使用GUI调试库
+var controls = new function () {
+    this.randomCamera = function () {
+        var x = 0;
+        var y = Math.round((Math.random() * 20));
+        var z = 0;
 
+        var x2 = 0;
+        var y2 = Math.round((Math.random() * 1));
+        var z2 = 0;
+        var pos = new THREE.Vector3(x, y, z);
+        var pos2 = new THREE.Vector3(x2, y2, z2);
 
+        console.log(pos)
+        console.log(pos2)
 
-// 按钮事件 控制场景放大缩小
-window.onload = function () {
-    const btn_up = document.querySelectorAll('.btn_up')[0];
-    console.log(btn_up);
-    btn_up.onclick = function () {
-        // camera.position.set(0, 15, 0);
-        console.log(camera.position);
-    };
+        animateCamera(camera.position, pos, orbit.target, pos2);
+    }
 };
 
-// 入场动画
-setTimeout(() => {
-    TweenMax.fromTo(camera.position, 2, { x: 0, y: 50, z: 0 }, { x: 0, y: 20, z: 0 });
-    setTimeout(() => {
-        orbit.maxDistance = 20; //相机向外移动
-    }, 2000);
-}, 2000);
+// 随机视角事件
+gui.add(controls, 'randomCamera');

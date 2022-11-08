@@ -367,6 +367,7 @@ function onMouseClick(event) {
 window.addEventListener('click', onMouseClick, false);
 
 // 划过当前选中
+let INTERSECTED;
 function onMouseMove(event) {
     // 获取屏幕坐标
     let vector = new THREE.Vector3(event.clientX / window.innerWidth * 2 - 1, -(event.clientY / window.innerHeight) * 2 + 1, 0.5)
@@ -379,18 +380,42 @@ function onMouseMove(event) {
     const intersects = raycaster.intersectObjects([s2Site1Plane, s2Site2Plane, s2Site3Plane, s2Site4Plane, s2Site5Plane], false)
     /******************************方式2end*********************************/
 
-    if (intersects.length == 0) {
-        TweenMax.to(mhor5Plane.material, 0.5, { opacity: 0 });
-    }
-    
+    // // 清除上一个选中对象
+    // if (intersects.length > 0) {
+
+    //     if (INTERSECTED != intersects[0].object) {
+
+    //         if (INTERSECTED) INTERSECTED.material.opacity = INTERSECTED.currentHex;
+
+    //         INTERSECTED = intersects[0].object;
+    //         INTERSECTED.currentHex = 0;
+    //         INTERSECTED.material.opacity = 1;
+    //     }
+
+    // } else {
+
+    //     if (INTERSECTED) INTERSECTED.material.opacity = INTERSECTED.currentHex;
+
+    //     INTERSECTED = null;
+
+    // }
+
     for (let i = 0; i < intersects.length; i++) {
+        // intersects[i].object.material.color.set(0xff0000);
+
         if (intersects[i].object.id === zyId) {
+            intersects[i].object.material.color.set(0xFF0000);
+
+            console.log(mhor5Plane.material.opacity);
+            // mhor5Plane.material.opacity = 1;
             TweenMax.to(mhor5Plane.material, 0.5, { opacity: 1 });
+            // TweenMax.to(camera.position, 0.5, { x: -10, y: 10, z: -0.6 });
         }
     }
+
+
 }
 window.addEventListener('mousemove', onMouseMove, false);
-
 
 
 
