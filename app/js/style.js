@@ -8,7 +8,7 @@ document.body.appendChild(renderer.domElement);
 // 场景 - 舞台
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x1c3a45);
-scene.fog = new THREE.FogExp2(0x1c3a45, 0.025);
+// scene.fog = new THREE.FogExp2(0x1c3a45, 0.025);
 
 // 右手坐标系
 // 红色代表 X 轴. 绿色代表 Y 轴. 蓝色代表 Z 轴.
@@ -26,12 +26,12 @@ camera.position.set(0, 50, 0);
 const orbit = new THREE.OrbitControls(camera, renderer.domElement);
 orbit.listenToKeyEvents(window);
 
-// orbit.enableRotate = false; //禁止旋转
+orbit.enableRotate = false; //禁止旋转
 // orbit.maxDistance = 20; //相机向外移动
-orbit.maxDistance = 50; //相机向外移动
+orbit.maxDistance = 100; //相机向外移动
 orbit.minDistance = 10; //相机向内移动
 
-orbit.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+orbit.enableDamping = false; // an animation loop is required when either damping or auto-rotation are enabled
 orbit.dampingFactor = 0.1;
 
 orbit.screenSpacePanning = false;
@@ -332,6 +332,17 @@ function onMouseClick(event) {
 
             TweenMax.to(orbit.target, 0.5, { x: -2.5, y: 0, z: 6 });
             TweenMax.to(camera.position, 0.5, { x: -2.5, y: 10, z: 6 });
+
+            scene.remove(scene.getObjectByName("particles_rainy"));
+            scene.remove(scene.getObjectByName("particles_snowy"));
+            scene.remove(scene.getObjectByName("particles_huo"));
+            scene.remove(scene.getObjectByName("particles_tu"));
+
+            if (rainy_sw != 5) {
+                rainy_sw = 5;
+                console.log('rainy_sw==' + rainy_sw);
+                createParticles();
+            }
         }
 
         if (intersects[i].object.id === huoshanId) {
@@ -339,6 +350,16 @@ function onMouseClick(event) {
 
             TweenMax.to(orbit.target, 0.5, { x: 7.2, y: 0, z: 0.45 });
             TweenMax.to(camera.position, 0.5, { x: 7.2, y: 10, z: 0.45 });
+
+            scene.remove(scene.getObjectByName("particles_rainy"));
+            scene.remove(scene.getObjectByName("particles_snowy"));
+            scene.remove(scene.getObjectByName("particles_feng"));
+            scene.remove(scene.getObjectByName("particles_tu"));
+
+            if (rainy_sw != 3) {
+                rainy_sw = 3;
+                createParticles();
+            }
         }
 
         if (intersects[i].object.id === longId) {
@@ -346,6 +367,16 @@ function onMouseClick(event) {
 
             TweenMax.to(orbit.target, 0.5, { x: 2, y: 0, z: -6.5 });
             TweenMax.to(camera.position, 0.5, { x: 2, y: 10, z: -6.5 });
+
+            scene.remove(scene.getObjectByName("particles_rainy"));
+            scene.remove(scene.getObjectByName("particles_snowy"));
+            scene.remove(scene.getObjectByName("particles_huo"));
+            scene.remove(scene.getObjectByName("particles_feng"));
+
+            if (rainy_sw != 4) {
+                rainy_sw = 4;
+                createParticles();
+            }
         }
 
         if (intersects[i].object.id === langId) {
@@ -353,6 +384,17 @@ function onMouseClick(event) {
 
             TweenMax.to(orbit.target, 0.5, { x: -4, y: 0, z: -8 });
             TweenMax.to(camera.position, 0.5, { x: -4, y: 10, z: -8 });
+
+            scene.remove(scene.getObjectByName("particles_rainy"));
+            scene.remove(scene.getObjectByName("particles_huo"));
+            scene.remove(scene.getObjectByName("particles_feng"));
+            scene.remove(scene.getObjectByName("particles_tu"));
+
+
+            if (rainy_sw != 2) {
+                rainy_sw = 2;
+                createParticles();
+            }
         }
 
         if (intersects[i].object.id === zyId) {
@@ -360,6 +402,16 @@ function onMouseClick(event) {
 
             TweenMax.to(orbit.target, 0.5, { x: -10, y: 0, z: -0.6 });
             TweenMax.to(camera.position, 0.5, { x: -10, y: 10, z: -0.6 });
+
+            scene.remove(scene.getObjectByName("particles_snowy"));
+            scene.remove(scene.getObjectByName("particles_huo"));
+            scene.remove(scene.getObjectByName("particles_feng"));
+            scene.remove(scene.getObjectByName("particles_tu"));
+
+            if (rainy_sw != 1) {
+                rainy_sw = 1;
+                createParticles();
+            }
         }
     }
 }
@@ -382,22 +434,226 @@ function onMouseMove(event) {
     if (intersects.length == 0) {
         TweenMax.to(mhor5Plane.material, 0.5, { opacity: 0 });
     }
-    
+
     for (let i = 0; i < intersects.length; i++) {
         if (intersects[i].object.id === zyId) {
-            TweenMax.to(mhor5Plane.material, 0.5, { opacity: 1 });
+            // TweenMax.to(mhor5Plane.material, 0.5, { opacity: 1 });
+            // scene.remove(scene.getObjectByName("particles_rainy"));
+            // rainy_sw = 2;
+            // createParticles();
         }
     }
 }
 window.addEventListener('mousemove', onMouseMove, false);
 
 
+//生成snowgui设置配置项
+var cloud = null;
+var rainy_sw = 3; // 1雨2雪3晴4阴
 
+//生成粒子的方法
+function createParticles() {
+    // var img = rainy_sw == 1 ? "snow.png" : rainy_sw == 2 ? "snow.png" : rainy_sw == 3 ? "flamex.png" : rainy_sw == 4 ? "snowflake.png" : rainy_sw == 5 ? "snowflake.png" : "";
+    // var name = rainy_sw == 1 ? "particles_rainy" : rainy_sw == 2 ? "particles_snowy" : rainy_sw == 3 ? "particles_huo" : rainy_sw == 4 ? "particles_tu" : rainy_sw == 4 ? "particles_feng" : "";
+    var img, name;
+
+    console.log(rainy_sw);
+
+    switch (rainy_sw) {
+        case 1:
+            img = "snow.png";
+            name = "particles_rainy";
+            break;
+        case 2:
+            img = "snow.png"
+            name = "particles_snowy";
+
+            break;
+        case 3:
+            img = "flamex.png"
+            name = "particles_huo";
+
+            break;
+        case 4:
+            img = "snow.png"
+            name = "particles_tu";
+
+            break;
+        case 5:
+            img = "raindrop.png"
+            name = "particles_feng";
+            break;
+        case 6:
+            img = "snowflake.png"
+            name = "particles_none";
+            break;
+        default:
+            break;
+    }
+
+
+    var texture = new THREE.TextureLoader().load("../images/" + img);
+
+    var guicolor, guisize, guiopacity;
+    //存放粒子数据的网格
+    var geom = new THREE.BufferGeometry();
+    //样式化粒子的THREE.PointCloudMaterial材质
+    if (rainy_sw == 1) {
+        guicolor = 0x00BFFF;
+        guisize = 0.2;
+        guiopacity = 1;
+    }
+    if (rainy_sw == 2) {
+        guisize = 0.2;
+        guiopacity = 0.8;
+        guicolor = 0xffffff;
+    }
+    if (rainy_sw == 3) {
+        guisize = 0.1;
+        guiopacity = 0.6;
+        guicolor = 0xffffff;
+    }
+    if (rainy_sw == 4) {
+        guisize = 0.2;
+        guiopacity = 0.6;
+        guicolor = 0xffffff;
+    }
+    if (rainy_sw == 5) {
+        guisize = 0.2;
+        guiopacity = 0.5;
+        guicolor = 0xffffff;
+    }
+
+    var material = new THREE.PointsMaterial({
+        size: guisize,
+        transparent: true,
+        opacity: guiopacity,
+        vertexColors: false,
+        map: texture,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: true,
+        color: new THREE.Color(guicolor),
+        depthTest: false  //设置解决透明度有问题的情况
+    });
+
+    var posintions = [];
+    var colors = [];
+    var velocities = [];
+    var x, y, z;
+    var range = 50;
+    for (let i = 0; i < 100; i++) {
+        for (let j = 0; j < 100; j++) {
+            posintions.push(Math.random() * range - range / 2,
+                Math.random() * range - range / 2,
+                Math.random() * range - range / 2);
+
+            if (rainy_sw == 1) {
+                // 定义粒子（雨滴）如何水平移动,横向运动速度的范围是-0.16～+0.16
+                x = ((Math.random() - 0.5) / 100);
+                // 定义雨滴以多快的速度落下,纵向运动速度的范围是0.1～0.3
+                y = (0.1 + Math.random() / 5);
+            }
+            if (rainy_sw == 2) {
+                x = (Math.random() - 0.5) / 30;
+                y = 0.01 + Math.random() / 10;
+                z = Math.random() * 50;
+            }
+
+            if (rainy_sw == 3) {
+                x = (Math.random() - 0.5) / 30;
+                y = 0.01 + Math.random() / 10;
+                z = Math.random() * 50;
+            }
+
+            if (rainy_sw == 4) {
+                x = (Math.random() - 0.5) / 30;
+                y = 0.01 + Math.random() / 10;
+                z = Math.random() * 50;
+            }
+
+            if (rainy_sw == 5) {
+                x = (Math.random() - 0.5) / 30;
+                y = 0.01 + Math.random() / 10;
+                z = Math.random() * 50;
+            }
+
+
+            velocities.push(x, y, z);
+        }
+    }
+    // for (var i = 0; i < 15000; i++) {
+
+
+    //     // var color = new THREE.Color(0xffffff);
+    //     // var asHSL = {};
+    //     // color.getHSL(asHSL);
+    //     // color.setHSL(asHSL.h, asHSL.s, asHSL.l * Math.random());
+    //     // colors.push(color.r, color.g, color.b);
+    // }
+
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(posintions, 3));
+    // geom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geom.setAttribute('velocity', new THREE.Float32BufferAttribute(velocities, 3));
+
+    //生成模型，添加到场景当中
+    cloud = new THREE.Points(geom, material);
+    cloud.verticesNeedUpdate = true;
+    cloud.name = name;
+
+    console.log(cloud.name);
+    scene.add(cloud);
+}
+function snowRender() {
+
+    if (cloud == null) return false;
+    //产生雨滴动画效果
+    var pos_BufferAttr = cloud.geometry.getAttribute('position');
+    var vel_BufferAttr = cloud.geometry.getAttribute('velocity');
+
+    for (var i = 0; i < pos_BufferAttr.count; i++) {
+        var pos_x = pos_BufferAttr.getX(i);
+        var pos_y = pos_BufferAttr.getY(i);
+        var pos_z = pos_BufferAttr.getZ(i);
+
+        var vel_x = vel_BufferAttr.getX(i);
+        var vel_y = vel_BufferAttr.getY(i);
+        var vel_z = vel_BufferAttr.getZ(i);
+
+        pos_x = pos_x - vel_x;
+        pos_y = pos_y - vel_y;
+        pos_z = pos_z - vel_z;
+
+        // console.log(pos_x);
+        // console.log(pos_y);
+        // console.log(pos_z);
+
+        if (pos_x <= -20 || pos_x >= 20) vel_x = vel_x * -1;
+        if (pos_y <= 0) pos_y = 30;
+
+
+        pos_BufferAttr.setX(i, pos_x);
+        pos_BufferAttr.setY(i, pos_y);
+
+        vel_BufferAttr.setX(i, vel_x);
+    }
+
+    //设置实时更新网格的顶点信息
+    pos_BufferAttr.needsUpdate = true;
+    vel_BufferAttr.needsUpdate = true;
+
+    // requestAnimationFrame(snowRender);
+    // renderer.render(scene, camera);
+}
+
+// createParticles();
+// snowRender();
 
 // 更新画布
 function animate(delta) {
     box.rotation.x = 20 + 10 * Math.cos(delta / 10000);
     box.rotation.y = 2 + 10 * Math.abs(Math.sin(delta / 10000));
+
+    snowRender()
     update();
     renderer.render(scene, camera);
 }

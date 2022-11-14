@@ -363,7 +363,7 @@ window.addEventListener('mousemove', onMouseMove, false);
 function animate(delta) {
     box.rotation.x = 20 + 10 * Math.cos(delta / 10000);
     box.rotation.y = 2 + 10 * Math.abs(Math.sin(delta / 10000));
-    // updateSnow();
+    updateSnow();
     update();
     renderer.render(scene, camera);
 }
@@ -474,7 +474,7 @@ for (let i = 0; i < 50; i++) {
         var x = Math.random() * 300 - 200;
         var y = Math.random() * 300 - 200;
         vertices.push(x, Math.random() * 50, y);
-        speeds.push(Math.random() * 10);
+        speeds.push(Math.random() * 1000);
         rotateSpeeds.push(Math.random() * 5);
     }
 }
